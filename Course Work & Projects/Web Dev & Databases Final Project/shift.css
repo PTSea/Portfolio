@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'Shift';
+  font-style: normal;
+  font-weight: normal;
+  src: url("https://web.engr.oregonstate.edu/~tanp/CS494/Assignment7/shift-bold.woff") format("woff");
+}
+@font-face {
+  font-family: 'Shift';
+  font-style: normal;
+  font-weight: bold;
+  src: url("https://web.engr.oregonstate.edu/~tanp/CS494/Assignment7/shift-bold.woff") format("woff");
+}

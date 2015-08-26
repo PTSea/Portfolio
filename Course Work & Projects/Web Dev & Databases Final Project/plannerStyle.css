@@ -1,0 +1,165 @@
+.calplanner tr {
+	font-weight: bold;
+}
+
+.calplanner .maincalendar tr {
+	border: 2px solid;
+}
+
+.calplanner .maincalendar tr:last-child {
+
+}
+
+.calplanner .addbutton a {
+	float: right;
+	margin-right: 20px;
+	margin-bottom: 10px;
+}
+
+.eventadder {
+	font-family: 'Shift',sans-serif;
+	font-weight: bold;
+	width: 515px;
+	height: 450px;
+}
+
+.eventadder fieldset {
+	width: 500px;
+	height: 450px;
+	border: 2px solid;
+	position: relative;
+}
+
+.eventadder table {
+	margin-top: 10px;
+	margin-left: 20px;
+	margin-right: 20px;
+	position: relative;
+}
+
+.eventadder h4 {
+	margin-top: 10px;
+	margin-left: 20px;
+	margin-right: 20px;
+	position: relative;
+}
+
+div.currentEvents {
+	margin-left: 100px;
+	position: relative;
+	display: inline-block;
+}
+
+.currentEvents td:first-child {
+	border-left: 2px solid;
+	border-right: 2px solid;
+	border-top: 2px solid;
+}
+
+.currentEvents td:last-child {
+	border-left: 2px solid;
+	border-right: 2px solid;
+	border-top: 2px solid;
+
+}
+
+.currentEvents td:nth-child(2) {
+	border-left: none;
+	border-right: 2px solid;
+	border-top: 2px solid;
+}
+
+.currentEvents td:nth-child(3) {
+	border-left: none;
+	border-right: 2px solid;
+	border-top: 2px solid;
+}
+
+
+.currentEvents tr {
+	border-bottom: 2px solid;
+}
+
+.sessionactive li {
+	display: inline;
+	margin-right: 50px;
+	margin-left: -30px;
+}
+
+.appHeading {
+  background-color: #4B618E;
+  height: 145px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.appHeading h1 {
+	position: relative;
+	font-weight: bold;
+	font-family: 'Shift',sans-serif;
+	font-size: 50px;
+	color: #fff;
+}
+
+.appHeading li {
+	margin-right: 50px;
+	margin-left: -30px;
+	display: inline;
+}
+
+.appHeading .pull-left li {
+	font-family: 'Shift',sans-serif;
+	font-style: italic;
+	color: #fff;
+	
+}
+
+.appHeading .container {
+  position: relative;
+  top:20px;
+}
+
+td.daybox:hover {
+	background: #EFF2F7;
+}
+
+div.day-number { 
+	background: #4B618E; 
+	padding:5px; 
+	color:#fff; 
+	font-weight:bold; 
+	float:left;
+	position: relative;
+	width:50px; 
+	text-align:center; 
+}
+
+#delete {
+	background-color:  #4B618E !important;
+	border-color:  #4B618E !important;
+	color: #fff;
+	font-weight: bold;
+	padding: 6px 9px;
+	background: #EFF2F7;
+	color: #fff !important;
+	font-size: 15px;
+	cursor: pointer;
+	border-style: solid;
+	border-color: #EFF2F7;
+	overflow: hidden;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.Headerbar {
+	background: #4B618E;
+	color:#fff;
+}
+
+.noneinthere {
+	font-style: italic;
+}
+
+fieldset.eform {
+	display: inline-block;
+}
