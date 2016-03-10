@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <title>Admin UI</title>
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="../AdminUI/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/><!--css/materialize.css-->
+  <link href="../AdminUI/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/><!--css/style.css-->
+</head>
+
+<body>
+
+  <!--NAV BANNER AT TOP OF PAGE-->
+  <!-- Dropdown Structure -->
+  <ul id="dropdown" class="dropdown-content">
+    <li id="account-button"><a>Account</a></li>
+    <li class="divider"></li>
+    <li id="logout-button"><a>Logout</a></li>
+  </ul>
+  <nav class="teal darken-2" role="navigation">
+    <div class="nav-wrapper container">
+      <div class="row">
+        
+        <a href="adminUI.html"><img class="hide-on-med-and-down logocontrol csclogo" src="../AdminUI/logoheader.png"></a><!--logoheader.png-->
+        <div class="namelimiter">        
+          <a href="adminUI.html" id="logo-container" class="brand-logo white-text waves-effect">Corvallis Sustainability Coalition</a>
+        </div>  
+      
+        <ul class="right hide-on-med-and-down">
+            <li id="login-button"><a class="white-text waves-effect ">Administrator Login</a></li>
+            <!-- Dropdown Trigger -->
+            <li id="admin-menu" class="hidden"><a id="admin-menu-title" class="dropdown-button white-text" href="#!" data-activates="dropdown"></a></li>            
+        </ul>
+
+      </div> 
+    </div>
+  </nav>
+
+  <!--MODAL FOR ADMIN LOGIN FORM-->
+  <div id="modal-login" class="modal loginmodal center">
+  
+    <div class="modal-content">
+      <h4>Administrator Login</h4>
+      <p>
+      <div class="row">
+        <form id="admin-login-form" class="col s12 m12 l12">
+          <div class="row">
+            <div class="input-field">
+              <!--<i class="material-icons prefix">email</i>-->
+              <input id="login-username" type="text">
+              <label for="username" data-error="Invalid">Username</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field">
+              <!--<i class="material-icons prefix">lock</i>-->
+              <input id="login-password" type="password">
+              <label for="password" data-error="Invalid Password">Password</label>
+            </div>
+          </div>
+        </form>
+      </div>
+      </p>
+      <h6 id="login-error" class="red-text"></h6>
+    </div>
+    
+    <div class="modal-footer">
+      <button id="login-submit" class="waves-effect waves-teal btn-flat teal-text text-darken-2">Login</button>
+    </div>
+    
+  </div>
+
+  <!--MODAL FOR POPUP-->
+  <div id="modal-popup" class="modal bottom-sheet popup">
+    <div class="row">    
+      <h5 id="popup-message" class="white-text h5bordering"></h5>
+      <a class="dismissit btn-flat h5bordering" id="dismissit"><h5 class="teal-text text-darken-2 h5bordering ">DISMISS</h5></a>
+    </div>
+  </div>
+  
+  <!--MODAL FOR ADMIN ACCOUNT FORM-->
+  <div id="modal-account" class="modal accountmodal modal-fixed-footer">
+  
+    <div class="modal-content">
+        <div class="center modalheader teal-text col s12 m12 l12">
+          <h4>Account Information</h4>
+          <a class="modalclosex btn-flat"><i class="material-icons teal-text modalclosex">close</i></a>
+        </div>
+        <form id="admin-account-form" class="col s12">
+            <div class="row">
+              <div class="input-field col s6 m6 l6">
+                <input disabled value="" id="account-username" type="text">
+                <label for="disabled">Username</label>
+              </div>
+              <div class="input-field col s6 m6 l6">
+                <input disabled value="" id="account-adminrole" type="text">
+                <label for="disabled">Role</label>
+              </div>
+            </div> 
+            <div class="row">
+              <div class="input-field col s6 m6 l6">
+                <input id="account-firstname" type="text">
+                <label for="account-firstname">First Name</label>
+              </div>
+              <div class="input-field col s6 m6 l6">
+                <input id="account-lastname" type="text">
+                <label for="account-lastname">Last Name</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6 m6 l6">
+                <input id="account-email" type="email">
+                <label for="account-email">Email</label>
+              </div>
+            </div>
+        </form>
+    </div>
+    
+    <div class="modal-footer">
+      <button id="update-account-submit" class="waves-effect waves-teal btn-flat teal-text text-darken-2">Update</button>
+      <button id="change-password-button" class="modal-close waves-effect waves-teal btn-flat teal-text text-darken-2">Change Password</button>
+    </div>
+    
+  </div>
+  
+  <!--MODAL FOR CHANGE PASSWORD-->
+  <div id="modal-change-password" class="modal changepasswordmodal modal-fixed-footer">
+
+    <div class="modal-content">
+        <div class="center modalheader teal-text col s12 m12 l12">
+          <h4>Change Password</h4>
+          <a class="modalclosex btn-flat"><i class="material-icons teal-text modalclosex">close</i></a>
+        </div>
+        <form id="change-password-form" class="col s12">
+            <div class="row">
+              <div class="input-field">
+                <input id="pwchange-password" type="password">
+                <label for="pwchange-password">Current Password</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field">
+                <input id="pwchange-newpassword1" type="password">
+                <label for="pwchange-newpassword1">New Password</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field">
+                <input id="pwchange-newpassword2" type="password">
+                <label for="pwchange-newpassword2">Retype New Password</label>
+              </div>
+            </div>
+        </form>
+        <h6 id="change-password-error" class="red-text center"></h6>
+    </div>
+    
+    <div class="modal-footer">
+      <button id="change-password-submit" class="waves-effect waves-teal btn-flat teal-text text-darken-2">Change Password</button>
+    </div>
+    
+  </div>
+
+  <!--PARALLAX BANNER-->
+  <div id="index-banner" class="parallax-container">
+    <div class="parallax"><img src="../AdminUI/background3.jpg" alt="Unsplashed background img 1"></div><!--background3.jpg-->
+  </div>
+  
+  <!--TABBED PAGE NAVIGATION-->
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <ul class="tabs">
+        <li class="tab"><a class="active teal-text waves-effect" href="#home">Home</a></li>
+        <li class="tab"><a class="teal-text waves-effect" href="#view">View Businesses</a></li>
+        <li class="tab"><a class="teal-text waves-effect" href="#addir">Admin Directory</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!--FLOATING ACTION BUTTON-->
+  <div id="fab-add" class="hidden fixed-action-btn container1">
+    <a class="buttons1"><span><span class="rotate"></span></span></a>
+    <ul>
+      <li>
+        <a id="add-subcategory-button" class="btn-floating waves-effect teal darken-4 tooltipped addcategory" data-position="left" data-delay="40" data-tooltip="Add Subcategory">
+          <i class="material-icons">view_module</i>
+        </a>
+      </li>
+      <li>
+        <a id="add-business-button" class="btn-floating waves-effect teal darken-4 tooltipped" data-position="left" data-delay="40" data-tooltip="Add Business">
+          <i class="material-icons">business</i>
+        </a>
+      </li>
+      <li>
+        <a id="add-admin-button" class="btn-floating waves-effect teal darken-4 tooltipped" data-position="left" data-delay="40" data-tooltip="Add Administrator">
+          <i class="material-icons">people</i>
+        </a>
+      </li>  
+    </ul>
+  </div>
+  
+  <!--HOME PAGE SECTION-->
+  <div class="container" id="home">
+    <div class="section">
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center teal-text"><i class="material-icons">file_download</i></h2>
+            <h5 class="center">Download our app in the Play Store!</h5>
+            <p class="light">Easily and quickly find reuse & repair businesses near you.</p>
+            <h5 class="center"><a href="https://play.google.com/store" target="_blank"><img src="../AdminUI/google-play-badge.png" class="googleplay"></a></h5>
+          </div>
+        </div>
+        <!--   Icon Section   -->
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center teal-text"><i class="material-icons">supervisor_account</i></h2>
+            <h5 class="center">Admin should see something here</h5>
+            <p class="light">This space is modifiable. It might display some news or content important to the admin. Perhaps mobile app metrics or database metrics.</p>
+          </div>
+        </div>
+        <!--   Icon Section   -->
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center teal-text"><img class="logocontrol" src="../AdminUI/RepublicLogo.png"></h2>
+            <h5 class="center">Find out about recycling services:</h5>
+            <a href="http://site.republicservices.com/site/corvallis-or/en/documents/corvallisrecycledepot.pdf" target="_blank">
+              <p>Click to see what the Republic recycling depot accepts!</p></a>
+            <a href="http://site.republicservices.com/site/corvallis-or/en/documents/detailedrecyclingguide.pdf" target="_blank">
+              <p>Click to see what Republic can accepts at the curb!</p></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Full text section-->
+    <div class="section">
+      <div class="row">
+        <div class="col s12 center">
+          <h3><i class="mdi-content-send teal-text"></i></h3>
+          <h4>Additional Content</h4>
+          <p class="left-align light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat. Etiam pellentesque tristique arcu, non consequat magna fermentum ac. Cras ut ultricies eros. Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros. Morbi sem neque, posuere et pretium eget, bibendum sollicitudin lacus. Aliquam eleifend sollicitudin diam, eu mattis nisl maximus sed. Nulla imperdiet semper molestie. Morbi massa odio, condimentum sed ipsum ac, gravida ultrices erat. Nullam eget dignissim mauris, non tristique erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--VIEW BUSINESSES SECTION-->
+  <div class="container" id="view">
+    <div class="section">
+      <div class="row">
+        <div class="col s12">
+          <div class="col s12 center">
+            <h1 class="icon-block teal-text"><i class="material-icons">format_list_bulleted</i></h1>
+            <h4>View Businesses Below</h4>
+            <p class="left-align light">You may view all businesses, view recycling businesses, view repair businesses, or view by the item category that those businesses take.
+              Business name, address, phone number, hours of operation, website are displayed. Additional information about the business may be viewed by expanding the business
+              selection.
+            </p>
+          </div>
+          <div class="row">
+            <div id="display-tabs" class="col s12 m12 l12 hidden">
+              <ul class="tabs">
+                <li class="tab"><a class="active teal-text waves-effect" href="#businesses">View Businesses</a></li>
+                <li class="tab"><a class="teal-text waves-effect" href="#subcategories">View Subcategories</a></li>
+              </ul>
+            </div>
+          </div>          
+     
+         <!--THIS IS THE TABLE FOR DISPLAYING BUSINESSES ONLY-->
+         <div class="container viewtbl z-depth-1 all" id="businesses">
+            <div class="filter-module">
+              <div class="col s12 m12 l12">
+                <h6 class="teal-text">FILTER BY:</h6>
+                 <div class="row center">
+                    <div class="input-field col s6 m6 l6">
+                      <select id="displaybusiness-businesstype">
+                        <option value="0" selected>All Businesses</option>
+                        <option value="1">Reuse</option>
+                        <option value="2">Repair</option>
+                      </select>
+                      <label for="displaybusiness-businesstype">Business Type</label>
+                    </div>
+                    <div class="input-field col s6 m6 l6">
+                      <select id="displaybusiness-subcategories" disabled>
+                      </select>
+                      <label for="displaybusiness-subcategories">Subcategories</label>
+                    </div>
+                 </div> 
+              </div>
+            </div>
+            <div class="section">
+              <div class="row">
+                <div class="col s12 m12 l12">
+                  <div class="datatable">
+                    <table class="highlight">
+                      <thead>
+                        <tr>
+                          <th data-field="alphaheader"> </th>
+                          <th data-field="Name">Name</th>
+                        </tr>
+                      </thead>
+                      <tbody id="displaybusinesslist">
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--THIS IS THE TABLE FOR DISPLAYING SUBCATEGORIES ONLY-->
+          <div class="container viewtbl z-depth-1 hidden" id="subcategories">
+            <div class="filter-module">
+              <div class="col s12 m12 l12">
+                <h6 class="teal-text">FILTER BY:</h6>
+                 <div class="row center">
+                    <div class="input-field col s6 m6 l6">
+                      <select id="displaysubcategories-businesstype">
+                        <option value="0" selected>All Subcategories</option>
+                        <option value="1">Reuse</option>
+                        <option value="2">Repair</option>
+                      </select>
+                      <label for="displaysubcategories-businesstype">Business Type</label>
+                    </div>
+                 </div> 
+              </div>
+            </div>
+            <div class="section">
+              <div class="row">
+                <div class="col s12 m12 l12">
+                  <div class="datatable">
+                    <table class="highlight">
+                      <thead>
+                        <tr>
+                          <th data-field="alphaheader"> </th>
+                          <th style="width:100%;" data-field="Name">Name</th>
+                          <th></th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody id="displaysubcategorylist">
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+  <!--MODAL FOR VIEW BUSINESS-->
+  <div id="modal-view-business" class="modal viewbusinessmodal modal">
+  
+    <div class="modal-content">
+      <div class="center modalheader teal-text col s12 m12 l12">
+        <h4>View Business</h4>
+        <a class="modalclosex btn-flat"><i class="material-icons teal-text modalclosex">close</i></a>
+      </div>  
+      <div class="col s12">
+        <div class="row">
+          <div id="business-info" class="col s6">   
+          </div>
+          <div id="map" class="col s6">
+          </div>
+        </div>         
+      </div>
+    </div>
+    
+  </div>
+    
+  <!--MODAL FOR ADD BUSINESS FORM-->
+  <div id="modal-add-business" class="modal addbusinessmodal modal-fixed-footer">
+    <div class="modal-content">
+    
+    <div class="center modalheader teal-text col s12 m12 l12">
+      <h4>Add Business</h4>
+      <a class="modalclosex btn-flat"><i class="material-icons teal-text modalclosex">close</i></a>
+    </div>  
+        <form id="add-business-form" class="col s12">
+            <div class="row">
+              <div class="input-field col s6 m6 l6">
+                <input id="addbusiness-name" type="text">
+                <label for="addbusiness-name">Name</label>
+              </div>
+              <div class="input-field col s6 m6 l6">
+                <input id="addbusiness-phone" type="text">
+                <label for="addbusiness-phone">Phone</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s2 m2 l2">
+                <input id="addbusiness-streetnumber" type="text">
+                <label for="addbusiness-streetnumber">Street Number</label>
+              </div>
+              <div class="input-field col s4 m4 l4">
+                <input id="addbusiness-streetname" type="text">
+                <label for="addbusiness-streetname">Street Name</label>
+              </div>
+              <div class="input-field col s6 m6 l6">
+                <input id="addbusiness-website" type="text">
+                <label for="addbusiness-website">Website</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s3 m3 l3">
+                <input id="addbusiness-city" type="text">
+                <label for="addbusiness-city">City</label>
+              </div>
+              <div class="input-field col s1 m1 l1">
+                <select id="addbusiness-state">
+                  <option value="" disabled selected>State</option>
+                  <option value="AL">AL</option>
+                  <option value="AK">AK</option>
+                  <option value="AZ">AZ</option>
+                  <option value="AR">AR</option>
+                  <option value="CA">CA</option>
+                  <option value="CO">CO</option>
+                  <option value="CT">CT</option>
+                  <option value="DE">DE</option>
+                  <option value="FL">FL</option>
+                  <option value="GA">GA</option>
+                  <option value="HI">HI</option>
+                  <option value="ID">ID</option>
+                  <option value="IL">IL</option>
+                  <option value="IN">IN</option>
+                  <option value="IA">IA</option>
+                  <option value="KS">KS</option>
+                  <option value="KY">KY</option>
+                  <option value="LA">LA</option>
+                  <option value="ME">ME</option>
+                  <option value="MD">MD</option>
+                  <option value="MA">MA</option>
+                  <option value="MI">MI</option>
+                  <option value="MN">MN</option>
+                  <option value="MS">MS</option>
+                  <option value="MO">MO</option>
+                  <option value="MT">MT</option>
+                  <option value="NE">NE</option>
+                  <option value="NV">NV</option>
+                  <option value="NH">NH</option>
+                  <option value="NJ">NJ</option>
+                  <option value="NM">NM</option>
+                  <option value="NY">NY</option>
+                  <option value="NC">NC</option>
+                  <option value="ND">ND</option>
+                  <option value="OH">OH</option>
+                  <option value="OK">OK</option>
+                  <option value="OR">OR</option>
+                  <option value="PA">PA</option>
+                  <option value="RI">RI</option>
+                  <option value="SC">SC</option>
+                  <option value="SD">SD</option>
+                  <option value="TN">TN</option>
+                  <option value="TX">TX</option>
+                  <option value="UT">UT</option>
+                  <option value="VT">VT</option>
+                  <option value="VA">VA</option>
+                  <option value="WA">WA</option>
+                  <option value="WV">WV</option>
+                  <option value="WI">WI</option>
+                  <option value="WY">WY</option>
+                </select>
+                <label for="addbusiness-state"></label>
+              </div>
+              <div class="input-field col s2 m2 l2">
+                <input id="addbusiness-zip" type="text">
+                <label for="addbusiness-zip">Zipcode</label>
+              </div>
+              <div class="input-field col s6 m6 l6">
+                <input id="addbusiness-hours" type="text">
+                <label for="addbusiness-hours">Hours</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6 m6 l6">
+                <select id="addbusiness-businesstype">
+                  <option value="" disabled selected>Business Type</option>
+                  <option value="1">Reuse</option>
+                  <option value="2">Repair</option>
+                </select>
+                <label for="addbusiness-businesstype"></label>
+              </div>
+              <div class="input-field col s6 m6 l6">
+                <select multiple id="addbusiness-subcategories">
+                </select>
+                <label for="addbusiness-subcategories"></label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <textarea id="addbusiness-desc" class="materialize-textarea"></textarea>
+                <label for="addbusiness-desc">Description</label>
+              </div>
+            </div>
+        </form>
+        <h6 id="add-business-error" class="red-text center"></h6>
+    </div>
+    
+    <div class="modal-footer">
+      <button id="add-business-submit" class="waves-effect waves-teal btn-flat teal-text text-darken-2">Add Business</button>
+    </div>
+    
+  </div>
+  
+  <!--MODAL FOR EDIT BUSINESS-->
+  <div id="modal-edit-business" class="modal editbusinessmodal modal-fixed-footer">
+  
+    <div class="modal-content">
+      <div class="center modalheader teal-text col s12 m12 l12">
+        <h4>Edit Business</h4>
+        <a class="modalclosex btn-flat"><i class="material-icons teal-text modalclosex">close</i></a>
+      </div>  
+      <form id="edit-business-form" class="col s12">
+          <div class="row">
+            <div class="input-field col s6 m6 l6">
+              <input id="editbusiness-name" type="text">
+              <label for="editbusiness-name">Name</label>
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <input id="editbusiness-phone" type="text">
+              <label for="editbusiness-phone">Phone</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s2 m2 l2">
+              <input id="editbusiness-streetnumber" type="text">
+              <label for="editbusiness-streetnumber">Street Number</label>
+            </div>
+            <div class="input-field col s4 m4 l4">
+              <input id="editbusiness-streetname" type="text">
+              <label for="editbusiness-streetname">Street Name</label>
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <input id="editbusiness-website" type="text">
+              <label for="editbusiness-website">Website</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s3 m3 l3">
+              <input id="editbusiness-city" type="text">
+              <label for="editbusiness-city">City</label>
+            </div>
+            <div class="input-field col s1 m1 l1">
+              <select id="editbusiness-state">
+                <option value="" disabled selected>State</option>
+                <option value="AL">AL</option>
+                <option value="AK">AK</option>
+                <option value="AZ">AZ</option>
+                <option value="AR">AR</option>
+                <option value="CA">CA</option>
+                <option value="CO">CO</option>
+                <option value="CT">CT</option>
+                <option value="DE">DE</option>
+                <option value="FL">FL</option>
+                <option value="GA">GA</option>
+                <option value="HI">HI</option>
+                <option value="ID">ID</option>
+                <option value="IL">IL</option>
+                <option value="IN">IN</option>
+                <option value="IA">IA</option>
+                <option value="KS">KS</option>
+                <option value="KY">KY</option>
+                <option value="LA">LA</option>
+                <option value="ME">ME</option>
+                <option value="MD">MD</option>
+                <option value="MA">MA</option>
+                <option value="MI">MI</option>
+                <option value="MN">MN</option>
+                <option value="MS">MS</option>
+                <option value="MO">MO</option>
+                <option value="MT">MT</option>
+                <option value="NE">NE</option>
+                <option value="NV">NV</option>
+                <option value="NH">NH</option>
+                <option value="NJ">NJ</option>
+                <option value="NM">NM</option>
+                <option value="NY">NY</option>
+                <option value="NC">NC</option>
+                <option value="ND">ND</option>
+                <option value="OH">OH</option>
+                <option value="OK">OK</option>
+                <option value="OR">OR</option>
+                <option value="PA">PA</option>
+                <option value="RI">RI</option>
+                <option value="SC">SC</option>
+                <option value="SD">SD</option>
+                <option value="TN">TN</option>
+                <option value="TX">TX</option>
+                <option value="UT">UT</option>
+                <option value="VT">VT</option>
+                <option value="VA">VA</option>
+                <option value="WA">WA</option>
+                <option value="WV">WV</option>
+                <option value="WI">WI</option>
+                <option value="WY">WY</option>
+              </select>
+              <label for="editbusiness-state"></label>
+            </div>  
+            <div class="input-field col s2 m2 l2">
+              <input id="editbusiness-zip" type="text">
+              <label for="editbusiness-zip">Zipcode</label>
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <input id="editbusiness-hours" type="text">
+              <label for="editbusiness-hours">Hours</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6 m6 l6">
+              <select id="editbusiness-businesstype">
+                <option value="" disabled selected>Business Type</option>
+                <option value="1">Reuse</option>
+                <option value="2">Repair</option>
+              </select>
+              <label for="editbusiness-businesstype"></label>
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <select multiple id="editbusiness-subcategories">
+              </select>
+              <label for="editbusiness-subcategories"></label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="editbusiness-desc" class="materialize-textarea"></textarea>
+              <label for="editbusiness-desc">Description</label>
+            </div>
+          </div>
+      </form>
+      <h6 id="edit-business-error" class="red-text center"></h6>
+    </div>
+    
+    <div class="modal-footer">
+      <button id="edit-business-submit" class="waves-effect waves-teal btn-flat teal-text text-darken-2">Update</button>
+    </div>
+    
+  </div>
+  
+  <!--MODAL FOR DELETE BUSINESS-->
+  <div id="modal-delete-business" class="modal deletebusinessmodal center">
+  
+    <div class="modal-content">
+        <h5 class="center">Are you sure you want to delete business?</h5>
+    </div>
+    
+    <div class="modal-footer">
+      <button id="delete-business-cancel" class="waves-effect waves-teal btn-flat teal-text text-darken-2">Cancel</button>
+      <button id="delete-business-submit" class="waves-effect waves-teal btn-flat teal-text text-darken-2">Delete Business</button>
+    </div>
+    
+  </div>
+
+  <!--MODAL FOR ADD SUBCATEGORY-->
+  <div id="modal-add-subcategory" class="modal addsubcategorymodal modal-fixed-footer">
+
+    <div class="modal-content">
+        <div class="center modalheader teal-text col s12 m12 l12">
+          <h4>Add Subcategory</h4>
+          <a class="modalclosex btn-flat"><i class="material-icons teal-text modalclosex">close</i></a>
+        </div>
+        <form id="add-subcategory-form" class="col s12">
+          <div class="input-field col s12 m12 l12">
+            <input id="addsub-subcategory" type="text">
+            <label for="addsub-subcategory">Subcategory</label>
+          </div>
+        </form>
+        <h6 id="add-subcategory-error" class="red-text center"></h6>
+    </div>
+    
+    <div class="modal-footer">
+      <button id="add-subcategory-submit" class="waves-effect waves-teal btn-flat teal-text text-darken-2">Add Subcategory</button>
+    </div>
+    
+  </div>
+
+  <!--MODAL FOR EDIT SUBCATEGORY-->
+  <div id="modal-edit-subcategory" class="modal editsubcategorymodal modal-fixed-footer">
+
+    <div class="modal-content">
+        <div class="center modalheader teal-text col s12 m12 l12">
+          <h4>Edit Subcategory</h4>
+          <a class="modalclosex btn-flat"><i class="material-icons teal-text modalclosex">close</i></a>
+        </div>
+        <form id="edit-subcategory-form" class="col s12">
+          <div class="input-field col s12 m12 l12">
+            <input id="editsub-subcategory" type="text">
+            <label for="editsub-subcategory">Subcategory</label>
+          </div>
+        </form>
+        <h6 id="edit-subcategory-error" class="red-text center"></h6>
+    </div>
+    
+    <div class="modal-footer">
+      <button id="edit-subcategory-submit" class="waves-effect waves-teal btn-flat teal-text text-darken-2">Update</button>
+    </div>
+    
+  </div>
+  
+  <!--MODAL FOR DELETE SUBCATEGORY-->
+  <div id="modal-delete-subcategory" class="modal deletesubcategorymodal center">
+  
+    <div class="modal-content">
+        <h5 class="center">Are you sure you want to delete subcategory?</h5>
+    </div>
+    
+    <div class="modal-footer">
+      <button id="delete-subcategory-cancel" class="waves-effect waves-teal btn-flat teal-text text-darken-2">Cancel</button>
+      <button id="delete-subcategory-submit" class="waves-effect waves-teal btn-flat teal-text text-darken-2">Delete Subcategory</button>
+    </div>
+    
+  </div>
+
+  <!--ADMIN DIRECTORY SECTION-->
+  <div class="container" id="addir">
+    <div class="section">
+      <div class="row">
+        <div class="col s12 center">
+          <h1 class="icon-block teal-text"><i class="material-icons">people</i></h1>
+          <h4>The Admins</h4>
+          <p class="left-align light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat. Etiam pellentesque tristique arcu, non consequat magna fermentum ac. Cras ut ultricies eros. Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros. Morbi sem neque, posuere et pretium eget, bibendum sollicitudin lacus. Aliquam eleifend sollicitudin diam, eu mattis nisl maximus sed. Nulla imperdiet semper molestie. Morbi massa odio, condimentum sed ipsum ac, gravida ultrices erat. Nullam eget dignissim mauris, non tristique erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+        </div>
+      </div>
+      <div id="admin-content" class="row">
+    
+      <!--Content dynamically added-->
+      
+      </div>
+    </div>
+  </div>
+
+  <!--MODAL FOR ADDING ADMIN-->
+  <div id="modal-add-admin" class="modal addadminmodal modal-fixed-footer">
+
+    <div class="modal-content">
+      <div class="center modalheader teal-text col s12 m12 l12">
+        <h4>Add Administrator</h4>
+        <a class="modalclosex btn-flat"><i class="material-icons teal-text modalclosex">close</i></a>
+      </div>
+      <form id="add-admin-form" class="col s12">
+          <div class="row">
+            <div class="input-field col s6 m6 l6">
+              <input id="addadmin-firstname" type="text">
+              <label for="addadmin-firstname">First Name</label>
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <input id="addadmin-username" type="text">
+              <label for="addadmin-username">Username</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6 m6 l6">
+              <input id="addadmin-lastname" type="text">
+              <label for="addadmin-lastname">Last Name</label>
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <input id="addadmin-email" type="email">
+              <label for="addadmin-email">Email (optional)</label>
+            </div>
+          </div> 
+          <div class="row">
+            <div class="input-field col s6 m6 l6">
+              <input id="addadmin-password1" type="password">
+              <label for="addadmin-password1">Password</label>
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <select id="addadmin-adminrole">
+                <option value="1" selected>Master Admin</option>
+                <option value="2">Content Management Admin</option>
+                <option value="3">Business Admin</option>
+                <option value="4">Read-Only Admin</option>
+              </select>
+              <label>Select Admin Role</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6 m6 l6">
+              <input id="addadmin-password2" type="password">
+              <label for="addadmin-password2">Retype Password</label>
+            </div>
+          </div>
+      </form>  
+      <h6 id="add-admin-error" class="red-text center"></h6>
+    </div>
+    
+    <div class="modal-footer">
+      <button id="add-admin-submit" class="waves-effect waves-teal btn-flat teal-text text-darken-2">Add Admin</button>
+    </div>
+    
+  </div>
+
+  <!--MODAL FOR CHANGE ROLE-->
+  <div id="modal-change-role" class="modal changerolemodal modal-fixed-footer">
+
+    <div class="modal-content">
+        <div class="center modalheader teal-text col s12 m12 l12">
+          <h4>Change Admin Role</h4>
+          <a class="modalclosex btn-flat"><i class="material-icons teal-text modalclosex">close</i></a>
+        </div>
+        <form id="change-role-form" class="col s12">
+          <div class="row">
+            <input name="role-group" type="radio" id="role1" value="1" checked />
+            <label for="role1">Master Admin</label>
+          </div>
+          <div class="row">
+            <input name="role-group" type="radio" id="role2" value="2"/>
+            <label for="role2">Content Management Admin</label>
+          </div>
+          <div class="row">
+            <input name="role-group" type="radio" id="role3" value="3"/>
+            <label for="role3">Business Admin</label>
+          </div>
+          <div class="row">
+            <input name="role-group" type="radio" id="role4" value="4"/>
+            <label for="role4">Read-Only Admin</label>
+          </div>
+        </form>
+    </div>
+    
+    <div class="modal-footer">
+      <button id="change-role-submit" class="waves-effect waves-teal btn-flat teal-text text-darken-2">Update Role</button>
+    </div>
+    
+  </div>
+  
+  <!--MODAL FOR DELETE USER-->
+  <div id="modal-delete-user" class="modal deleteusermodal center">
+  
+    <div class="modal-content">
+        <h5 class="center">Are you sure you want to delete user?</h5>
+    </div>
+    
+    <div class="modal-footer">
+      <button id="delete-user-cancel" class="waves-effect waves-teal btn-flat teal-text text-darken-2">Cancel</button>
+      <button id="delete-user-submit" class="waves-effect waves-teal btn-flat teal-text text-darken-2">Delete User</button>
+    </div>
+    
+  </div>
+  
+  <!--FOOTER-->
+  <footer class="page-footer teal">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">About Us</h5>
+          <p class="white-text">The Corvallis Sustainability Coalition is a network of organizations and individual volunteers in Corvallis, Oregon, who are working together to create a sustainable community.  It includes businesses, non-profits, faith communities, educational institutions, and government entities that are committed to creating a community that values environmental quality, social equity, and economic vitality.  Our primary purpose is to foster communication and collaboration so that we can accelerate progress toward a sustainable future.</p>
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Contact Us</h5>
+          <p class="white-text">
+            Corvallis Sustainability Coalition
+            <br>
+            P.O. Box 2310
+            <br>
+            Corvallis, OR 97339
+          </p>
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Connect</h5>
+            <p class="white-text">Visit our other sites:</p>
+            <a class="" target="_blank" href="http://sustainablecorvallis.org/"><img class="logocontrol" src="../AdminUI/logofulltrim.png"></a><!--logofulltrim.png-->
+            <a class="" target="_blank" href="https://www.facebook.com/SustainableCorvallis"><img class="logocontrol" src="../AdminUI/FBWhite512.png"></a><!--FBWhite512.png-->
+            <a class="" target="_blank" href="https://twitter.com/sustaincorv"><img class="logocontrol" src="../AdminUI/TwitterLogo_white.png"></a><!--TwitterLogo_white.png-->
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright teal darken-2">
+      <div class="container col s4 m4 l4">
+        <p class="white-text">Made by CS 419 Group 6: Philip Tan, Kayla Fitzsimmons, Brian Tiegs - Winter 2016 - <a class="white-text" target="_blank" href="http://materializecss.com/">Materialize Framework</a> - 
+          <a class="white-text" target="_blank" href=" ">Feedback</a></p>
+      </div>
+      <div class="container col s12 m6 l4">
+        
+      </div>
+    </div>
+  </footer>
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.2.min.js"></script>
+  <script src="../AdminUI/js/materialize.min.js"></script>
+  <script src="../AdminUI/js/index.js"></script>
+  <script src="../AdminUI/js/init.js"></script>
+  </body>
+</html>
