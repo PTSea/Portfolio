@@ -17,8 +17,12 @@ A working CMS site can be found [here](http://ec2-52-25-255-57.us-west-2.compute
 
 Our mobile application has not been built into a standalone app. To view the app, follow these steps:
 	<br>
-	&nbsp;&nbsp;&nbsp; 1. Download Ionic View from Apple App Store or Google Play.
+	&nbsp;&nbsp;&nbsp; 1. On your phone, download Ionic View from Apple App Store or Google Play.
 	<br>
 	&nbsp;&nbsp;&nbsp; 2. Once Ionic View is installed, log in or create an account.
 	<br>
-	&nbsp;&nbsp;&nbsp; 2. In the settings menu select 'Preview App', enter ID: A2578AFF
+	&nbsp;&nbsp;&nbsp; 3. In the settings menu select 'Preview App', enter ID: A2578AFF
+	<br>
+	&nbsp;&nbsp;&nbsp; 4. Make sure location settings are on in order for distance display to work correctly.
+	<br>
+	&nbsp;&nbsp;&nbsp; 5. Enjoy!
