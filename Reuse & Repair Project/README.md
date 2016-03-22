@@ -11,7 +11,7 @@ Technology & Process: Agile development process, Silex PHP Framework, Amazon EC2
 
 A working CMS site can be found [here](http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/adminUI.html)
 	<br>
-	&nbsp;&nbsp;&nbsp; Note: CMS functions can be tested by logging in with username: philiptan & password: password
+	&nbsp;&nbsp;&nbsp; Note: CMS functions can be tested by logging in with username: philiptan & password: password.
 	<br>
 	&nbsp;&nbsp;&nbsp; Have fun, but don't go too crazy!
 
@@ -21,7 +21,7 @@ Our mobile application has not been built into a standalone app. To view the app
 	<br>
 	&nbsp;&nbsp;&nbsp; 2. Once Ionic View is installed, log in or create an account.
 	<br>
-	&nbsp;&nbsp;&nbsp; 3. In the settings menu select 'Preview App', enter ID: A2578AFF
+	&nbsp;&nbsp;&nbsp; 3. In the settings menu select 'Preview App', enter ID: A2578AFF.
 	<br>
 	&nbsp;&nbsp;&nbsp; 4. Make sure location settings are on in order for distance display to work correctly.
 	<br>
