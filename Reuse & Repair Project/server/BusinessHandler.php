@@ -415,12 +415,13 @@ class BusinessHandler extends Handler
         $success = $prepared->execute();
         $all = $prepared->fetchAll();
 
+
         foreach ($all as $row) {
           $category = new Category($row['category_id'],$row['category_name']);
           $address = new Address($row['address_id'],$row['street_number'],$row['street_name'],$row['city'],$row['state'],$row['zip'],$row['geolocation']);
           $hours = new Hours($row['hours_id'],$row['hours_entry']);
           // $id, $category, $name, $address, $hours, $website
-          $business = new Business($row['business_id'],$category,$row['business_name'],$address,$row['phone'],$hours,$row['website']);
+          $business = new Business($row['business_id'],$category,$row['business_name'],$address,$row['phone'],$hours,$row['website'],$row['description']);
           $this->results[]= $business->jsonSerialize();
         }
         return $this->getJSON();

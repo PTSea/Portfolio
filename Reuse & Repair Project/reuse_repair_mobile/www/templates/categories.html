@@ -1,7 +1,19 @@
-<ion-view title="Categories">
-    <ion-list>
-      <ion-item ng-repeat="x in categories",  href="#/categories/{{x.id}}">
-        {{x.name}}
-      </ion-item>
-    </ion-list>
+<ion-view title="Home" hide-nav-bar="true">
+	<!--<ion-content>-->
+		<a ng-repeat="x in categories" href="#/categories/{{x.id}}">
+			<button class="button button-full button-stable catbutton">
+				{{x.name}}
+			</button>
+		</a>
+		<a ng-click="openLink('http://docs.google.com/viewer?url=http://site.republicservices.com/site/corvallis-or/en/documents/corvallisrecycledepot.pdf')">
+		  <button class="button button-full button-stable catbutton">
+		    Republic Recycling Depot
+		  </button>
+		</a>
+		<a ng-click="openLink('http://docs.google.com/viewer?url=http://site.republicservices.com/site/corvallis-or/en/documents/detailedrecyclingguide.pdf')">
+		  <button class="button button-full button-stable catbutton">
+		    Recycle at curb
+		  </button>
+		</a>
+	<!--</ion-content>-->
 </ion-view>

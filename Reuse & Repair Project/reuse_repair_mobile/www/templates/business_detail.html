@@ -1,0 +1,85 @@
+<ion-view>
+  <ion-nav-title class="businesstitle">{{business.name}}</ion-nav-title>
+  <ion-content>
+	<div id="map" data-tap-disabled="true"></div>
+    <div id="business-content">
+      <a ng-if="showMap" ng-click="openMap('http://maps.google.com/maps?daddr='+geolink+'&dirflg=d')" ng-href="geo:{{geolink}}">
+        <button id="dir-btn" class="button button-stable"><i class="icon ion-android-navigate navbutton"></i></button>
+      </a>
+
+      <br>
+      <div ng-if="address" class="businessinfo row">
+        <div class="col col-10">
+          <i class="icon ion-android-pin detailicon"></i>
+        </div>
+        <div class="col col-90">
+          {{business.address.street_number}}
+          {{business.address.street_name}}
+          <br>
+          {{business.address.city}}
+          {{business.address.state}}
+          {{business.address.zip}}
+          <br>
+        </div>
+      </div>
+
+      <div ng-if="business.website != null && business.website != ''" class="businessinfo row">
+        <div class="col col-10">
+          <i class="icon ion-android-globe detailicon"></i>
+        </div>
+        <div class="col col-90">
+          <a ng-click="openLink(business.website)">Visit Website</a><br>
+        </div>
+      </div>
+
+      <div ng-if="business.phone != null && business.phone != ''" class="businessinfo row">
+        <div class="col col-10">
+          <i class="icon ion-android-call detailicon"></i>
+        </div>
+        <div class="col col-90">
+          <a ng-click="dialNumber(phonelink)">{{business.phone}}</a><br>
+        </div>
+      </div>
+      <div ng-if="business.hours.hours_entry != null && business.hours.hours_entry != ''" class="businessinfo row">
+        <div class="col col-10">
+          <i class="icon ion-android-time detailicon"></i>
+        </div>
+        <div class="col col-90">
+          {{hours[0]}}<br>
+          {{hours[1]}}<br>
+          {{hours[2]}}<br>
+          {{hours[3]}}<br>
+          {{hours[4]}}<br>
+          {{hours[5]}}<br>
+          {{hours[6]}}<br>
+        </div>
+      </div>
+
+      <!--<div ng-switch="business.category.name" class="businessinfo">
+        <i ng-switch-when="Reuse" class="icon ion-leaf detailicon"></i>
+        <i ng-switch-when="Repair" class="icon ion-wrench detailicon"></i>
+        Type:  {{business.category.name}}<br><br>
+      </div>-->
+
+      <div ng-if="business.description != null && business.description != ''" class="businessinfo row">
+        <div class="col col-10">
+          <i class="icon ion-android-list detailicon"></i>
+        </div>
+        <div class="col col-90">
+          Description:  {{description}}<br>
+        </div>
+      </div>
+
+      <div ng-if="subcategories != null" class="businessinfo row">
+        <div class="col col-10">
+          <i class="icon ion-android-list detailicon"></i>
+        </div>
+        <div class="col col-90">
+          {{subcategories}}<br>
+        </div>
+      </div>
+
+    </div>
+    <br>
+  </ion-content>
+</ion-view>

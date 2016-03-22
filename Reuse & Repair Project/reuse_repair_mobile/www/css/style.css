@@ -1,1 +1,85 @@
 /* Empty. Add your own CSS if you like */
+.pane {
+	background-color: lightgray !important;
+}
+
+ a {
+ 	color: inherit;
+ 	text-decoration: none;
+ }
+
+.scroll {
+    height: 100%;
+}
+
+#map {
+    width: 100%;
+    height: 50%;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+#splash {
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	text-align: center;
+	z-index: 99;
+}
+
+#splash-content {
+	width: 100%;
+	height: 100%;
+	padding-top: 50%;
+	background-color: #009688;
+}
+
+#splash-content h1 {
+	color: white;
+}
+
+#splash-csclogo {
+	height:90px;
+	width:90px;
+}
+
+.bg-spinner {
+	position: absolute;
+	top: 30%;
+    width: 100%;
+    text-align: center;
+}
+
+.dist {
+	position: absolute;
+	color: lightGray;
+	right: 3%;
+	bottom: 1%;
+	text-align: right;
+	font-size: 80%;
+}
+
+#business-content {
+	position: relative;
+}
+
+#dir-btn {
+  position: absolute;
+  border-radius: 100%;
+  right: 10%;
+  top: -30px;
+  height: 60px;
+  width: 60px;
+  z-index: 99;
+  background-color: #009688;
+  box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.4);
+}
+
+.navbutton {
+  color: #ffffff;
+}
+
+.catbutton {
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.3);
+}

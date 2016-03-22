@@ -1342,7 +1342,10 @@
 
 .ion-chevron-left:before {
   content: ""; }
-
+.ion-chevron-left {
+  height: 15px;
+  width: 15px;
+}
 .ion-chevron-right:before {
   content: ""; }
 
@@ -3005,9 +3008,21 @@ time, mark, audio, video {
   padding: 0;
   border: 0;
   vertical-align: baseline;
-  font: inherit;
-  font-size: 100%; }
+  font: inherit;  } /*font-size: 100%;*/
 
+.businesstitle {
+  font-size: 20px;
+}
+
+.businessinfo {
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.detailicon {
+  font-size: 20px;
+  color: #009688;
+}
 ol, ul {
   list-style: none; }
 
@@ -3925,12 +3940,13 @@ a.subdued {
     .bar.bar-light.bar-footer {
       background-image: linear-gradient(180deg, #ddd, #ddd 50%, transparent 50%); }
   .bar.bar-stable {
-    border-color: #b2b2b2;
-    background-color: #f8f8f8;
+    border-color: #26a69a;
+    background-color: #26a69a;
     background-image: linear-gradient(0deg, #b2b2b2, #b2b2b2 50%, transparent 50%);
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2);
     color: #444; }
     .bar.bar-stable .title {
-      color: #444; }
+      color: #ffffff; }
     .bar.bar-stable.bar-footer {
       background-image: linear-gradient(180deg, #b2b2b2, #b2b2b2 50%, transparent 50%); }
   .bar.bar-positive {
@@ -3963,7 +3979,7 @@ a.subdued {
   .bar.bar-balanced {
     border-color: #009688;
     background-color: #009688;
-    background-image: linear-gradient(0deg, #28a54c, #28a54c 50%, transparent 50%);
+    background-image: linear-gradient(0deg, #009688, #009688 50%, transparent 50%);
     color: #fff; }
     .bar.bar-balanced .title {
       color: #fff; }
@@ -4004,7 +4020,9 @@ a.subdued {
     left: 0;
     z-index: 0;
     overflow: hidden;
-    margin: 0 10px;
+    margin-right: 10px;
+    margin-bottom: 0px;
+    margin-top: 0px;
     min-width: 30px;
     height: 43px;
     text-align: left;
@@ -4013,8 +4031,10 @@ a.subdued {
     font-size: 19px;
     font-weight: 500;
     line-height: 44px; }
+
     .bar .title.title-left {
-      text-align: left; }
+      text-align: left;
+      margin-left: 10px;}
     .bar .title.title-right {
       text-align: right; }
   .bar .title a {
@@ -4053,7 +4073,12 @@ a.subdued {
       margin-right: 5px;
       padding: 0;
       white-space: nowrap;
-      font-weight: 400; }
+      font-weight: 400;
+      font-size: 20px;
+      background-color: #26a69a;
+      color: #ffffff;
+      margin-left: 10px; }
+
     .bar .button.back-button.active, .bar .button.back-button.activated, .bar button.back-button.active, .bar button.back-button.activated {
       opacity: 0.2; }
   .bar .button-bar > .button,
@@ -4083,8 +4108,16 @@ a.subdued {
     position: absolute;
     top: 5px;
     right: 5px;
-    bottom: 5px; }
-
+    bottom: 5px;
+    padding-right: 16px; }
+  .bar .csclogo {
+    height: 30px;
+    width: 46px;
+    padding-left: 16px;
+    margin-top: 2px;
+    position: absolute;
+    line-height: 90px;
+  }
 .platform-android .nav-bar-has-subheader .bar {
   background-image: none; }
 
@@ -4092,7 +4125,7 @@ a.subdued {
   font-size: 24px; }
 
 .platform-android .bar .title {
-  font-size: 19px;
+  font-size: 20px;
   line-height: 44px; }
 
 .bar-light .button {
@@ -4118,9 +4151,9 @@ a.subdued {
   border-color: transparent;
   background-color: #f8f8f8;
   color: #444; }
-  .bar-stable .button:hover {
-    color: #444;
-    text-decoration: none; }
+  /*.bar-stable .button:hover {
+    color: #ffffff;
+    text-decoration: none; }*/
   .bar-stable .button.active, .bar-stable .button.activated {
     background-color: #e5e5e5; }
   .bar-stable .button.button-clear {
@@ -4198,7 +4231,7 @@ a.subdued {
     color: #fff;
     text-decoration: none; }
   .bar-balanced .button.active, .bar-balanced .button.activated {
-    background-color: #28a54c; }
+    background-color: #ffffff; }
   .bar-balanced .button.button-clear {
     border-color: transparent;
     background: none;
@@ -7384,8 +7417,8 @@ ion-slides {
  * --------------------------------------------------
  */
 .spinner {
-  stroke: #444;
-  fill: #444; }
+  stroke: #009688;
+  fill: #009688; }
   .spinner svg {
     width: 28px;
     height: 28px; }
@@ -7418,7 +7451,7 @@ ion-slides {
     fill: #444; }
 
 .spinner-android {
-  stroke: #4b8bf4; }
+  stroke: #009688; }
 
 .spinner-ios,
 .spinner-ios-small {
