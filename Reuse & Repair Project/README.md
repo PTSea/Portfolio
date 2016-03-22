@@ -1,16 +1,17 @@
-# Corvallis Reuse & Repair Directory
-# Project for CS 419 Special Projects course...
+#Corvallis Reuse & Repair Directory
+##CS 419 Special Projects
+###Group Members: Philip Tan, Kayla Fitzsimmons, Brian Tiegs
 
 Goal: Create an API, CMS, and mobile application that allows users in Corvallis to find
-       reuse and repair businesses nearby.
+       reuse and repair businesses nearby and allows users to view business information.
 
 Technology & Process: Agile development process, Silex PHP Framework, Amazon EC2, AngularJS,
-                        Ionic/Cordova, Github, LAMP, MaterializeCSS Framework, Material Design,
+                        Ionic/Cordova, Github, LAMP stack, MaterializeCSS Framework, Material Design,
 			Photoshop 
 
 A working CMS site can be found [here](http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/adminUI.html)
 	<br>
-	&nbsp;&nbsp;&nbsp; Note: CMS functions can be tested by logging in with username: philiptan password: password
+	&nbsp;&nbsp;&nbsp; Note: CMS functions can be tested by logging in with username: philiptan & password: password
 	<br>
 	&nbsp;&nbsp;&nbsp; Have fun, but don't go too crazy!
 
