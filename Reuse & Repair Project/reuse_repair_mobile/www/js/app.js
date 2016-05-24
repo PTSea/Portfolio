@@ -73,7 +73,7 @@ function distance(lat1, lon1, lat2, lon2) {
 // create a service and use the json retreived from that
 app.controller('categoryController',function($scope,$http){
 
-    $http.get("http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/categories")
+    $http.get("http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/categories")
       .then(function(response){
         $scope.categories = response.data;
         $scope.$apply();
@@ -90,7 +90,7 @@ app.controller('categoryController',function($scope,$http){
 
 }).controller('subcategoryController',function($scope,$http,$stateParams){
   // console.log($stateParams); <-- $stateParams is how you access the id for the selected list item
-  $http.get("http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/subcategories/category/"+$stateParams.id)
+  $http.get("http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/subcategories/category/"+$stateParams.id)
     .then(function(response){
       $scope.category_id = $stateParams.id;
       $scope.subcategories = response.data;
@@ -104,7 +104,7 @@ app.controller('categoryController',function($scope,$http){
 
 }).controller('businessController',function($scope,$http,$stateParams){
   // console.log($stateParams); <-- $stateParams is how you access the id for the selected list item
-  $http.get("http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses/category/"+$stateParams.category_id+"/subcategory/"+$stateParams.subcategory_id)
+  $http.get("http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses/category/"+$stateParams.category_id+"/subcategory/"+$stateParams.subcategory_id)
     .then(function(response){
 
       var businesses = response.data;
@@ -149,7 +149,7 @@ app.controller('categoryController',function($scope,$http){
     });
 }).controller('businessDetailController',function($scope,$http,$stateParams){
   // console.log($stateParams); <-- $stateParams is how you access the id for the selected list item
-  $http.get("http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses/"+$stateParams.business_id)
+  $http.get("http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/businesses/"+$stateParams.business_id)
     .then(function(response){
 
       var business_info = response.data[0];
@@ -230,7 +230,7 @@ app.controller('categoryController',function($scope,$http){
       else
         subcategories = "Subcategories: ";
 
-      $http.get("http://ec2-54-200-134-246.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/subcategories/business/"+$stateParams.business_id)
+      $http.get("http://ec2-52-25-255-57.us-west-2.compute.amazonaws.com/Reuse-and-Repair/web/index.php/subcategories/business/"+$stateParams.business_id)
         .then(function(response){
 
           for(var i = 0; i < response.data.length; i++)
