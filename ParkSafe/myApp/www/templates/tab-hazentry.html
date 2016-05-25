@@ -1,0 +1,147 @@
+<ion-view view-title="Items">
+    <div ng-if="!vm.isCreating && !vm.isEditing">
+        <ion-content class="padding has-header">
+            <!-- LIST -->
+            <div class="bar bar-header">
+                <span ng-click="vm.isCreating = true"><i class='icon ion-plus-round new-item'> Add Item</i></span>
+            </div>
+            <div class="bar bar-subheader">
+                <div class="list card" ng-repeat="object in vm.data"
+                     ng-class="{'active':vm.isCurrent(object.id)}">
+                    <div class="item item-icon-right item-icon-left">
+                        <i class="ion-compose icon" ng-click="vm.setEdited(object)"></i>
+
+                        <h2 class="text-center">{{object.hazardname}}</h2>
+                        <i class="icon ion-close-round" ng-click="vm.delete(object.id)"></i>
+                    </div>
+                    <div class="item item-body">
+                        {{object.hazardname}}
+                        {{object.color}}
+                        {{object.park}}
+                        {{object.lat}} {{object.lng}}
+                    </div>
+                </div>
+            </div>
+        </ion-content>
+    </div>
+    <div ng-if="vm.isCreating">
+        <ion-content class="padding has-header">
+            <!-- CREATING -->
+            <div class="bar bar-header">
+                <h2 class="title">Create Item</h2>
+                <span ng-click="vm.cancelCreate()" class="cancel-create">Cancel</span>
+            </div>
+            <div class="bar bar-subheader">
+                <form class="create-form" role="form"
+                      ng-submit="vm.create(vm.newObject)" novalidate>
+                    <div class="hazardlist">
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">Hazard</span>
+                            <!--<input type="text" class="form-control"
+                                   ng-model="vm.newObject.hazardname"
+                                   placeholder="Enter name">-->
+                        </label>
+                        <ion-list>
+                          <ion-radio ng-model="vm.newObject.hazardname" ng-value="'4'">Sharps</ion-radio>
+                          <ion-radio ng-model="vm.newObject.hazardname" ng-value="'5'">Obstructions</ion-radio>
+                          <ion-radio ng-model="vm.newObject.hazardname" ng-value="'6'">Flooding</ion-radio>
+                          <ion-radio ng-model="vm.newObject.hazardname" ng-value="'7'">Landslides</ion-radio>
+                          <ion-radio ng-model="vm.newObject.hazardname" ng-value="'8'">Fire</ion-radio>
+                        </ion-list>
+                        <br>
+                    </div>
+
+                    <!--<div class="parklist">
+                        <label class="item item-input item-stacked-label">
+                          <span class="input-label">Park</span>
+                          <input type="text" class="form-control"
+                                 ng-model="vm.newObject.hazardname"
+                                 placeholder="Enter name">
+                        </label>-->
+                        <!--<ion-list title="parklist">
+                          <ion-radio ng-model="vm.newObject.park" ng-value="'11'">Washington Park & Arboretum</ion-radio>
+                          <ion-radio ng-model="vm.newObject.park" ng-value="'12'">Kerry Park</ion-radio>
+                          <ion-radio ng-model="vm.newObject.park" ng-value="'13'">Golden Gardens</ion-radio>
+                          <ion-radio ng-model="vm.newObject.park" ng-value="'14'">Gas Works Park</ion-radio>
+                          <ion-radio ng-model="vm.newObject.park" ng-value="'15'">Alki Beach Park</ion-radio>
+                        </ion-list>
+                        <br>
+                    </div>-->
+
+                    <div class="parklist">
+                      <label class="item item-input item-select">
+                        <div class="input-label">
+                          Park
+                        </div>
+                        <select>
+                          <option ng-model="vm.newObject.park" ng-value="'11'">Washington Park & Arboretum</option>
+                          <option ng-model="vm.newObject.park" ng-value="'12'">Kerry Park</option>
+                          <option ng-model="vm.newObject.park" ng-value="'13'">Golden Gardens</option>
+                          <option ng-model="vm.newObject.park" ng-value="'14'">Gas Works Park</option>
+                          <option ng-model="vm.newObject.park" ng-value="'15'">Alki Beach Park</option>
+                        </select>
+                      </label>
+                    </div>
+
+                    <div class="colorlist">
+                      <label class="item item-input item-select">
+                        <div class="input-label">
+                          Threat Level
+                        </div>
+                        <select>
+                          <option ng-model="vm.newObject.color" ng-value="'red'">High</option>
+                          <option ng-model="vm.newObject.color" ng-value="'orange'">Medium</option>
+                          <option ng-model="vm.newObject.color" ng-value="'yellow'">Low</option>
+                        </select>
+                      </label>
+                    </div>
+                    <div class="geo">
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">lat</span>
+                        <textarea placeholder="Comments" class="form-control"
+                                  ng-model="vm.newObject.lat"
+                                  placeholder="Enter description"></textarea>
+                        </label>
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">lng</span>
+                        <textarea placeholder="Comments" class="form-control"
+                                  ng-model="vm.newObject.lng"
+                                  placeholder="Enter description"></textarea>
+                        </label>
+                    </div>
+                    <button class="button button-block button-positive" type="submit">Create</button>
+                </form>
+            </div>
+        </ion-content>
+    </div>
+    <div ng-if="vm.isEditing && !vm.isCreating">
+        <ion-content class="padding has-header">
+            <!-- EDITING -->
+            <div class="bar bar-header bar-secondary">
+                <h1 class="title">Editing {{vm.edited.name}}</h1>
+                <span ng-click="vm.cancelEditing()" class="cancel-create">Cancel</span>
+            </div>
+            <div class="bar bar-subheader">
+                <form class="edit-form" role="form"
+                      ng-submit="vm.update(vm.edited)" novalidate>
+                    <div class="list">
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">Name</span>
+                            <input type="text" class="form-control"
+                                   ng-model="vm.edited.name"
+                                   placeholder="Enter name">
+                        </label>
+                        <label class="item item-input item-stacked-label">
+                            <span class="input-label">Description</span>
+                    <textarea class="form-control"
+                              ng-model="vm.edited.description"
+                              placeholder="Enter description"></textarea>
+
+                        </label>
+                    </div>
+                    <button class="button button-block button-positive" type="submit">Save</button>
+                </form>
+            </div>
+        </ion-content>
+    </div>
+</ion-view>

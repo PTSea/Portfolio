@@ -1,0 +1,48 @@
+/* Empty. Add your own CSS if you like */
+.icon.new-item {
+	position: absolute;
+	right: 20px;
+	font-size: 20px;
+	bottom: 13px;
+}
+.cancel-create {
+	position: absolute;
+	right: 20px;
+	font-size: 14px;
+	bottom: 13px;
+	color:#ef4e3a;
+}
+[ng-click], [data-ng-click], [x-ng-click] {
+    cursor: pointer;
+}
+/* Ionic Overwrite! */
+.item-icon-left .icon, .item-icon-right .icon {
+	font-size: 22px;
+}
+
+/* Empty. Add your own CSS if you like */
+
+map {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin-top: 45px;
+	z-index: -100;
+}
+.scroll {
+  height: 100%;
+}
+
+.tabs {
+	border-color: transparent;
+	border-style: none;
+}
+
+#addEntry{
+	background-color: #4CAF50;
+	margin-right: 25%;
+	margin-bottom: 10px;
+	color: white;
+	padding: 10px;
+	border-radius: 8px;
+}
