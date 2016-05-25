@@ -3,9 +3,11 @@ Examples of my work!
 
 Reuse & Repair Project: A project done in my last quarter at OSU, a capstone/final project if you will. I am proud of it, please check it out.
 
-LearningApp: One of many Android app projects to come. This one is for me to learn the basics of Android app dev. The goal for now is to create the app below...
+LearningApp: One of many Android app projects to come. This one is for me to learn the basics of Android app dev.
 
-ParkSafe (WIP): An Android app started at a hackathon that is still being worked on. Users can share where hazards may be located in a park.
+ParkSafe (WIP): An Ionic based Android app started at a hackathon that is still being worked on. Users can share where hazards may be located in a park.
+
+ReactJS Mini-App: A very small hybrid Android app project done in ReactJS. Users can look up car VINs and see basic car info.
 
 Course Work & Projects: Various programming projects and course work I've done for classes at OSU.
 
