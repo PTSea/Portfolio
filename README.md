@@ -1,7 +1,23 @@
 # Portfolio
 Examples of my work! A mix of personal and school projects.
 
+
+##School Projects:
+
 Reuse & Repair Project: A project done in my last quarter at OSU, a capstone/final project if you will. I am proud of it, please check it out.
+
+Architecture & Assembly Numeric Array Stats: A MASM assembly language assignment utilizing macros.
+
+Operating Systems One Time Pad Encrypter-Decrypter: Simple OTP program written in C for OS course.
+
+Software Engineering II Dominion Card Game Tests: Software tests written to test a version of the card game Dominion.
+
+Software Engineering II URL Validator Tests: Unit and automated tests written to test a buggy version of Apache Commons URL code.
+
+Web Dev & Databases Final Project: An early project I began while taking my first web dev course, and added upon while taking the databases course.
+
+
+##Personal Projects:
 
 LearningApp: One of many Android app projects to come. This one is for me to learn the basics of Android app dev.
 
