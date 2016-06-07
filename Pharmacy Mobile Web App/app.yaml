@@ -1,0 +1,30 @@
+application: ptfinalproject
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+
+handlers:
+-   url: /favicon\.ico
+    static_files: favicon.ico
+    upload: favicon\.ico
+
+-   url: /pilllogo\.jpg
+    static_files: pilllogo.jpg
+    upload: pilllogo\.jpg
+
+-   url: /defprofile\.jpg
+    static_files: defprofile.jpg
+    upload: defprofile\.jpg
+
+-   url: /assignment4
+    static_files: pharmapp.html
+    upload: pharmapp\.html
+
+-   url: /.*
+    script: main.app
+
+libraries:
+-   name: webapp2
+    version: latest

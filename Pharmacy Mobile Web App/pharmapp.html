@@ -1,0 +1,447 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="google-signin-client_id" content="634525459280-7dlh5ef0a5mf3kes97kvl8jphc01sqon.apps.googleusercontent.com">
+	<title>PT Assignment4</title>
+	<!--ptfinalproject.appspot.com-->
+	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.css" />
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+	<script>
+		//http://stackoverflow.com/questions/32453806/uncaught-securityerror-failed-to-execute-replacestate-on-history-cannot-be
+		$(document).bind('mobileinit',function(){
+		    $.mobile.changePage.defaults.changeHash = false;
+		    $.mobile.hashListeningEnabled = false;
+		    $.mobile.pushStateEnabled = false;
+		});
+	</script>
+	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+	<!--The following section handles weather API data from weather underground-->
+	<script>
+		window.onload = function() {
+			init();
+		}
+
+		function init() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(positionSuccess, positionError);
+			}
+			else {
+				alert('Geolocation not supported...');
+			}
+		}
+
+		function positionSuccess(position) {
+			var latitude = position.coords.latitude;
+			var longitude = position.coords.longitude;
+
+			var Weather = "https://api.wunderground.com/api/2199d11a71e77ba6/forecast/geolookup/conditions/q/" + latitude + "," + longitude + ".json";
+
+			$.ajax({
+				url : Weather,
+				dataType : "jsonp",
+				success : function(data) {
+					// get all the information
+					var location =data['location']['city'];
+					var temp = data['current_observation']['temp_f'];
+					var desc = data['current_observation']['weather'];
+					var windspeed = data['current_observation']['wind_mph'];
+					var winddir = data['current_observation']['wind_dir'];
+					document.getElementById("location").innerHTML = location;
+					document.getElementById("temp").innerHTML = temp;
+					document.getElementById("desc").innerHTML = desc;
+					document.getElementById("windspeed").innerHTML = windspeed;
+					document.getElementById("winddir").innerHTML = winddir;				
+				}
+			});
+		}
+
+		function positionError(error) {
+			alert(error.message);
+		}
+	</script>
+
+	<!--Javascript for writing data to database & reading data from database-->
+	<script>
+		//https://www.youtube.com/watch?v=cDN-sFM6ack
+		function handleClick(e) {
+			var pID = $('#pid').val();
+			var name = $('#name').val();
+			var age = $('#age').val();
+			var sex = $('#sex').val();
+			var pharm = pharmname;
+			$.post('https://ptfinalproject.appspot.com/patients', {pID: pID, name: name, age: age, sex: sex, pharm: pharm});
+			$('#entries').listview('refresh');
+			return false;
+		};
+
+		function putClick(e) {
+			tempkey;
+			console.log(tempkey);
+			var pID2 = $('#pid2').val();
+			var name2 = $('#name2').val();
+			var age2 = $('#age2').val();
+			var sex2 = $('#sex2').val();
+			//$.put('https://ptfinalproject.appspot.com/patients'+ '/' + tempkey, {pID: pID, name: name, age: age, sex: sex});
+			$.ajax({
+				url: 'https://ptfinalproject.appspot.com/patients/'+ tempkey,
+				type: 'PUT',
+				data: {pID: pID2, name: name2, age: age2, sex: sex2},
+				success: function(data) {
+					alert('Edit Worked...');
+				}
+			});
+			$('#entries').listview('refresh');
+			return false;
+		};
+
+		function deletepat() {
+			$.ajax({
+				url: 'https://ptfinalproject.appspot.com/patients/'+ tempkey,
+				type: 'DELETE',
+				success: function(data) {
+					alert('Entry Deleted...');
+				}
+			});
+			$('#entries').listview('refresh');
+			return false;
+		}
+
+		//function idhandler() {
+		//	onclick="putclick(keytoedit)"
+		//	$('#editdata button').attr('onclick', putclick(val.key){
+		//		counter = i+1;	
+		//		return counter;
+		//		//editpat(val.pID);
+		//	});
+		//}
+
+		$(document).ready(function() {
+			$('#addinfo1').click(handleClick);
+			$('#editinfo1').click(putClick);
+			$('#deletepat').click(deletepat);
+			$('#view1').click(pharmpat);
+			$('#view2').click(pharmpat);
+			//$('#editpat').click(editpat);
+
+		});
+
+		var tempkey;
+		function editpat(idval) {
+			//console.log(idval);
+			var counter = 0;
+			$.getJSON('https://ptfinalproject.appspot.com/patients', function(keys) {
+				
+				for (var i=0; i < keys.keys.length; i++) {
+					var patientURL = 'https://ptfinalproject.appspot.com/patients' + '/' + keys.keys[i];
+					$.getJSON(patientURL, function(val) {
+						if (val.pharm == pharmname) {
+							if (val.key == idval) {
+								document.getElementById("nametoedit").innerHTML = val.name;
+								document.getElementById("agetoedit").innerHTML = val.age;
+								document.getElementById("sextoedit").innerHTML = val.sex;
+								document.getElementById("idtoedit").innerHTML = val.pID;
+								document.getElementById("keytoedit").innerHTML = val.key;
+								tempkey = val.key;
+
+							}
+
+							$('#entries').listview('refresh');
+						}
+					});
+				}
+			});
+		}
+
+		function pharmpat(e){
+
+			$("ul").append("<li>" + " " + "</li>");
+			$("li").remove();
+			var counter = 0;
+			$.getJSON('https://ptfinalproject.appspot.com/patients', function(keys) {
+				
+				for (var i=0; i < keys.keys.length; i++) {
+					var patientURL = 'https://ptfinalproject.appspot.com/patients' + '/' + keys.keys[i];
+					$.getJSON(patientURL, function(val) {
+						if (val.pharm == pharmname) {
+							$("ul").append("<li><a href='#editpat' id=" + val.key + " onclick=editpat("+ val.key +")>" + val.name + " - " + "ID: " + val.pID + " - " + "Age: " + val.age + " - " + "Sex: " + val.sex + " - " + "DBID: " + val.key + "</a></li>");
+							$('#entries li').attr('id', function(i) {
+								counter = i+1;	
+								return counter;
+								//editpat(val.pID);
+							});
+							$('#entries').listview('refresh');
+						}
+					});
+				}
+			});
+		}
+	</script>
+
+	<!--Sign-In & Sign-Out Using Google-->
+	<script>
+		var pharmname;
+		function onSignIn(googleUser) {
+			var profile = googleUser.getBasicProfile();
+			pharmname = profile.getName();
+			var imgurl = profile.getImageUrl();
+			document.getElementById("pharmname").innerHTML = pharmname;
+			document.getElementById("pharmname2").innerHTML = pharmname;
+			document.getElementById("imgurl").src = imgurl;			
+			document.getElementById("picURL1").src = imgurl;
+			document.getElementById("picURL2").src = imgurl;
+			document.getElementById("picURL3").src = imgurl;
+			document.getElementById("picURL4").src = imgurl;
+			if (pharmname == null || pharmname == undefined) {
+				console.log("no pharmacist name");
+			}
+			else {
+				document.getElementById("next").setAttribute("class", "ui-btn ui-state-enabled");
+				document.getElementById("next").text = "Next...";
+				document.getElementById("signout").setAttribute("class", "ui-state-enabled");
+			}
+		}
+
+		function signOut() {
+			var auth2 = gapi.auth2.getAuthInstance();
+			auth2.signOut().then(function () {
+				console.log('User signed out.');
+			});
+			location.reload();
+		}
+
+	</script>
+
+	<style>
+		.picname {
+			float: right;
+			position: relative;
+		}
+		.ui-header {
+			min-height: 97px;
+		}
+		.g-signin2 {
+			width: 200px;
+
+		}
+	</style>
+</head>
+
+<body>
+
+<!-- SPLASH
+<div data-role="page" id="splash" data-theme="a"> 
+    <div role="main" class="ui-content">  
+        <a href="#zero"><img src="pilllogo.jpg" alt="startup image" style="width: 100%; height: 100%" /></a>
+    </div>
+</div>-->
+
+<!-- LOGIN -->
+<div data-role="page" id="zero" data-theme="a"> 
+	<div data-role="header">
+		<h1>Login</h1>
+
+
+	</div><!-- /header -->
+
+    <div role="main" class="ui-content" align="center">  
+		<p><spand id="pharmname"></span></p>
+		<img id="imgurl" src="imgurl" onError="this.onerror=null;this.src='defprofile.jpg';" style="width: 7%; height: 7%" />		
+		<div class="g-signin2" data-onsuccess="onSignIn"></div>
+		<button type="button" id="signout" class="ui-state-disabled" onclick="signOut();">Sign Out</button>
+		<a href="#one" id="next" class="ui-btn ui-state-disabled">Please login first...</a>
+    </div>
+
+    <div data-role="footer" data-theme="a">
+		<h4>Philip Tan - CS 496 - FINAL PROJECT</h4>
+	</div><!-- /footer -->
+</div>
+
+<!-- Start of first page: #one -->
+<div data-role="page" id="one" data-theme="a">
+
+	<div data-role="header" data-position="inline">
+		<h1>Pharmacy App Home</h1>
+		<div align="left">
+			<p><span id="location"></span>, <span id="temp"> </span>F & <span id="desc"> </span>, Wind: <span id="windspeed"></span> MPH <span id="winddir"></span></p>
+		</div>
+		<div id="picname" class="ui-btn-right">
+			<a href="#" class="ui-btn" onclick="signOut();">Sign out</a> <img id="picURL1" src="picURL1" align="top" onError="this.onerror=null;this.src='defprofile.jpg';" style="width: 45%; height: 45%" />
+			
+		</div>
+		
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<h2>Hello, </h2>
+		
+		<p>Welcome to the Pharmacy App Home page. Below you will find options to enter a new patient and drug information in as well as modify or delete that information in the database.</p>
+		<p><span id="infolist"></span></p>
+		<p><a href="#two" class="ui-btn ui-shadow ui-corner-all ui-btn-b">Enter a New Patient & Drug Information</a></p>
+		<p><a id="view1" href="#three" class="ui-btn ui-shadow ui-corner-all ui-btn-b">View Patient & Drug Information</a></p>	
+		<!--<p><a href="#popup" class="ui-btn ui-shadow ui-corner-all" data-rel="dialog" data-transition="pop">Show page "popup" (as a dialog)</a></p>-->
+	</div><!-- /content -->
+
+	<div data-role="footer" data-theme="a">
+		<h4>Philip Tan - CS 496 - FINAL PROJECT</h4>
+	</div><!-- /footer -->
+</div><!-- /page one -->
+
+
+<!-- Start of second page: #two -->
+<div data-role="page" id="two" data-theme="a">
+
+	<div data-role="header" data-position="inline">
+		<h1>Enter A New Patient & Drug Info</h1>
+		
+		<div id="picname" class="ui-btn-right">
+			<a href="#" class="ui-btn" onclick="signOut();">Sign out</a> <img id="picURL2" src="picURL2" align="top" onError="this.onerror=null;this.src='defprofile.jpg';" style="width: 45%; height: 45%" />
+		</div>
+	</div><!-- /header -->
+
+	<div id="entryform" role="main" class="ui-content">
+		<h2>Here you may enter information in for a new patient...</h2>
+		<!-- PATIENT ID, NAME, AGE, SEX, REQUIRED-->
+		<form id="enterdata" method="POST" enctype="multipart/form-data">
+			
+			<label for="name">NAME:</label>
+			<input type="text" name="name" id="name" value="">
+
+			<label for="pid">PATIENT ID:</label>
+			<input type="number" data-clear-btn="true" name="pid" id="pid" value="">
+
+			<label for="age">AGE:</label>
+			<input type="range" name="age" id="age" value="0" min="0" max="130" step="1" data-highlight="true">
+			
+			<label for="sex" class="select"></label>
+			<select name="sex" id="sex" data-native-menu="false">
+			    <option>SEX:</option>
+			    <option value="male">Male</option>
+			    <option value="female">Female</option>
+			</select>
+			<br/>
+			<button id="addinfo1">Submit Entry</button>
+			<!--<input class="ui-shadow ui-btn ui-corner-all ui-btn-b" type="button" id="addinfo1" name="submit" value="Submit">-->
+        	<!--<input class="ui-shadow ui-btn ui-corner-all" type="reset" name="reset" value="Reset">-->
+		</form>
+
+		<p><a id="view2" href="#three" class="ui-btn ui-shadow ui-corner-all ui-btn-b">View Patient & Drug Information</a></p>
+		<p><a href="#one" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b">Back to App Home</a></p>
+
+	</div><!-- /content -->
+
+	<div data-role="footer">
+		<h4>Philip Tan - CS 496 - FINAL PROJECT</h4>
+	</div><!-- /footer -->
+</div><!-- /page two -->
+
+
+<!-- Start of second page: #three -->
+<div data-role="page" id="three" data-theme="a">
+
+	<div data-role="header">
+		<h1>View Patient & Drug Info</h1>
+		<div id="picname" class="ui-btn-right">
+			<a href="#" class="ui-btn" onclick="signOut();">Sign out</a> <img id="picURL3" src="picURL3" align="top" onError="this.onerror=null;this.src='defprofile.jpg';" style="width: 45%; height: 45%" />
+		</div>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<h2>Here you may view patient and drug information...</h2>
+		<h2><span id="pharmname2"></span>'s Patients:</h2>
+
+		<!--<p><spand id="entries"></span></p>-->
+		<div id="patientlist">
+			<ul data-filter="true" data-theme="a" data-role="listview" data-filter-placeholder="Search patients..." data-inset="true" id="entries"></ul>
+		</div>
+		<p><a href="#two" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b">Back to Add Patient Entry</a></p>
+		<p><a href="#one" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b">Back to App Home</a></p>
+
+	</div><!-- /content -->
+
+	<div data-role="footer">
+		<h4>Philip Tan - CS 496 - FINAL PROJECT</h4>
+	</div><!-- /footer -->
+</div><!-- /page two -->
+
+
+<!-- Start of edit page: #edit -->
+<div data-role="page" id="editpat" data-theme="a">
+
+	<div data-role="header">
+		<h1>Edit Patient Info</h1>
+		<div id="picname" class="ui-btn-right">
+			<a href="#" class="ui-btn" onclick="signOut();">Sign out</a> <img id="picURL4" src="picURL4" align="top" onError="this.onerror=null;this.src='defprofile.jpg';" style="width: 45%; height: 45%" />
+		</div>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+		<h2>Edit Patient Information:</h2>
+
+		<div>
+			<p>Name: <span id="nametoedit"></span> - ID: <span id="idtoedit"></span> - Age: <span id="agetoedit"></span> - Sex: <span id="sextoedit"></span>- DBID: <span id="keytoedit"></span></p>
+			<button type="button" id="deletepat">Delete Entry</button>
+		</div>
+
+		<form id="editdata" method="POST" enctype="multipart/form-data">
+			
+			<label for="name2">NAME:</label>
+			<input type="text" name="name2" id="name2" value="">
+
+			<label for="pid2">PATIENT ID:</label>
+			<input type="number" data-clear-btn="true" name="pid2" id="pid2" value="">
+
+			<label for="age2">AGE:</label>
+			<input type="range" name="age2" id="age2" value="0" min="0" max="130" step="1" data-highlight="true">
+			
+			<label for="sex2" class="select"></label>
+			<select name="sex2" id="sex2" data-native-menu="false">
+			    <option>SEX:</option>
+			    <option value="male">Male</option>
+			    <option value="female">Female</option>
+			</select>
+			<br/>
+			<button id="editinfo1">Submit Entry</button>
+			<!--<input class="ui-shadow ui-btn ui-corner-all ui-btn-b" type="button" id="addinfo1" name="submit" value="Submit">-->
+        	<!--<input class="ui-shadow ui-btn ui-corner-all" type="reset" name="reset" value="Reset">-->
+		</form>
+
+		<p><a href="#three" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b">Back to View Patients</a></p>
+		<p><a href="#two" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b">Back to Add Patient Entry</a></p>
+		<p><a href="#one" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b">Back to App Home</a></p>
+
+	</div><!-- /content -->
+
+	<div data-role="footer">
+		<h4>Philip Tan - CS 496 - FINAL PROJECT</h4>
+	</div><!-- /footer -->
+</div><!-- /page two -->
+
+</body>
+</html>
+
+
+
+
+<!--
+<div data-role="page" id="popup">
+
+	<div data-role="header" data-theme="b">
+		<h1>Dialog</h1>
+	</div>
+
+	<div role="main" class="ui-content">
+		<h2>Popup</h2>
+		<p>I have an id of "popup" on my page container and only look like a dialog because the link to me had a <code>data-rel="dialog"</code> attribute which gives me this inset look and a <code>data-transition="pop"</code> attribute to change the transition to pop. Without this, I'd be styled as a normal page.</p>
+		<p><a href="#one" data-rel="back" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-icon-back ui-btn-icon-left">Back to page "one"</a></p>
+	</div>
+	<div data-role="footer">
+		<h4>Page Footer</h4>
+	</div>
+</div>-->
