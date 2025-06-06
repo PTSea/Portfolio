@@ -1,4 +1,4 @@
-# Old Portfolio
+# Projects from school...
 Examples of my work! A mix of personal and school projects.
 
 
